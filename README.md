@@ -3,7 +3,7 @@
 NSL Mailgun Extension for Yii2
 
 ## Version
-Aktuelle Version: 1.0.0
+Aktuelle Version: 1.0.2
 
 ## Installation
 
