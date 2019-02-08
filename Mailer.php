@@ -19,6 +19,7 @@ use \Mailgun\Mailgun;
  *         'class' => 'boundstate\mailgun\Mailer',
  *         'key' => 'key-example',
  *         'domain' => 'mg.example.com',
+ *         'apiurl' => 'api.eu.mailgun.net'
  *     ],
  *     ...
  * ],
@@ -52,6 +53,12 @@ class Mailer extends BaseMailer
     public $domain;
 
     /**
+     * @var string Mailgun API URL.
+     */
+    public $apiurl = 'api.eu.mailgun.net';
+
+
+    /**
      * @var Mailgun Mailgun instance.
      */
     private $_mailgun;
@@ -75,11 +82,10 @@ class Mailer extends BaseMailer
     {
         Yii::info('Sending email', __METHOD__);
 
-        $this->getMailgun()->post("{$this->domain}/messages",
+        return $this->getMailgun()->post("{$this->domain}/messages",
             $message->getMessageBuilder()->getMessage(),
             $message->getMessageBuilder()->getFiles());
 
-         return true;
     }
 
     /**
@@ -95,6 +101,6 @@ class Mailer extends BaseMailer
         if (!$this->domain) {
             throw new InvalidConfigException('Mailer::domain must be set.');
         }
-        return new Mailgun($this->key);
+        return new Mailgun($this->key, $this->apiurl);
     }
 }

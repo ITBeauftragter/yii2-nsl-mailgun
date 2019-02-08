@@ -82,6 +82,17 @@ class Message extends BaseMessage
     /**
      * @inheritdoc
      */
+    public function addTags($tags)
+	 {
+		foreach ($tags as $tag) {
+			$this->getMessageBuilder()->addTag($tag);
+		}
+		return $this;
+	 }
+
+    /**
+     * @inheritdoc
+     */
     public function setReplyTo($replyTo)
     {
         $this->getMessageBuilder()->setReplyToAddress($replyTo);

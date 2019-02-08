@@ -1,18 +1,18 @@
 {
-    "name": "boundstate/yii2-mailgun",
-    "description": "Mailgun integration for the Yii framework",
+    "name": "itbeauftragter/yii2-nsl-mailgun",
+    "description": "NSL Mailgun Extension for Yii2",
     "type": "yii2-extension",
     "keywords": ["yii2", "extension", "rackspace", "mailgun", "mail", "email", "mailer"],
     "license": "Apache-2.0",
     "authors": [
         {
-            "name": "Mike Peters",
-            "email": "mikejpeters@gmail.com"
+            "name": "Daniel Lucas",
+            "email": "daniel.lucas@neusser-schuetzenlust.de"
         }
     ],
     "require": {
         "yiisoft/yii2": ">=2.0.4",
-        "mailgun/mailgun-php": "~1.8"
+        "mailgun/mailgun-php": "~2.8"
     },
     "autoload": {
         "psr-4": {

@@ -1,24 +1,12 @@
 # Mailgun
 
-Mailgun integration for the Yii framework
+NSL Mailgun Extension for Yii2
 
 ## Installation
 
-The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
-
-Either run
-
 ```
-php composer.phar require --prefer-dist boundstate/yii2-mailgun "*"
+php composer.phar require --prefer-dist itbeauftragter/yii2-nsl-mailgun "*"
 ```
-
-or add
-
-```
-"boundstate/yii2-mailgun": "*"
-```
-
-to the require section of your `composer.json` file.
 
 ## Usage
 
@@ -31,6 +19,7 @@ Configure it in the application configuration:
         'class' => 'boundstate\mailgun\Mailer',
         'key' => 'key-example',
         'domain' => 'mg.example.com',
+        'apiurl' => 'api.eu.mailgun.net'
     ],
     ...
 ],
@@ -42,6 +31,7 @@ To send an email, you may use the following code:
 Yii::$app->mailer->compose('contact/html', ['contactForm' => $form])
     ->setFrom('from@domain.com')
     ->setTo($form->email)
+    ->addTags(['Tag1', 'Tag2'])
     ->setSubject($form->subject)
     ->send();
 ```
