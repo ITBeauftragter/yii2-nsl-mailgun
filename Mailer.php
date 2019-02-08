@@ -16,7 +16,7 @@ use \Mailgun\Mailgun;
  * 'components' => [
  *     ...
  *     'mailer' => [
- *         'class' => 'boundstate\mailgun\Mailer',
+ *         'class' => 'itbeauftragter\mailgun\Mailer',
  *         'key' => 'key-example',
  *         'domain' => 'mg.example.com',
  *         'apiurl' => 'api.eu.mailgun.net'
@@ -40,7 +40,7 @@ class Mailer extends BaseMailer
     /**
      * @var string message default class name.
      */
-    public $messageClass = 'boundstate\mailgun\Message';
+    public $messageClass = 'itbeauftragter\mailgun\Message';
 
     /**
      * @var string Mailgun API credentials.
