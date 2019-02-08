@@ -1,6 +1,6 @@
 <?php
 
-namespace boundstate\mailgun;
+namespace itbeauftragter\mailgun;
 
 use Yii;
 use yii\base\InvalidConfigException;

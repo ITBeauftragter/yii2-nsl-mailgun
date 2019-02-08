@@ -1,6 +1,6 @@
 <?php
 
-namespace boundstate\mailgun;
+namespace itbeauftragter\mailgun;
 
 
 use yii\base\NotSupportedException;
