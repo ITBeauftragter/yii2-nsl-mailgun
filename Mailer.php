@@ -6,7 +6,6 @@ use Yii;
 use yii\base\InvalidConfigException;
 use yii\mail\BaseMailer;
 use \Mailgun\Mailgun;
-
 /**
  * Mailer implements a mailer based on Mailgun.
  *
@@ -16,10 +15,9 @@ use \Mailgun\Mailgun;
  * 'components' => [
  *     ...
  *     'mailer' => [
- *         'class' => 'itbeauftragter\mailgun\Mailer',
+ *         'class' => 'boundstate\mailgun\Mailer',
  *         'key' => 'key-example',
  *         'domain' => 'mg.example.com',
- *         'apiurl' => 'api.eu.mailgun.net'
  *     ],
  *     ...
  * ],
@@ -40,29 +38,23 @@ class Mailer extends BaseMailer
     /**
      * @var string message default class name.
      */
-    public $messageClass = 'itbeauftragter\mailgun\Message';
-
+    public $messageClass = 'boundstate\mailgun\Message';
     /**
      * @var string Mailgun API credentials.
      */
     public $key;
-
     /**
      * @var string Mailgun domain.
      */
     public $domain;
-
     /**
-     * @var string Mailgun API URL.
+     * @var string Mailgun endpoint.
      */
-    public $apiurl = 'api.eu.mailgun.net';
-
-
+    public $endpoint = 'api.eu.mailgun.net';
     /**
      * @var Mailgun Mailgun instance.
      */
     private $_mailgun;
-
     /**
      * @return Mailgun Mailgun instance.
      */
@@ -71,23 +63,20 @@ class Mailer extends BaseMailer
         if (!is_object($this->_mailgun)) {
             $this->_mailgun = $this->createMailgun();
         }
-
         return $this->_mailgun;
     }
-
     /**
      * @inheritdoc
      */
     protected function sendMessage($message)
     {
         Yii::info('Sending email', __METHOD__);
-
-        return $this->getMailgun()->post("{$this->domain}/messages",
-            $message->getMessageBuilder()->getMessage(),
-            $message->getMessageBuilder()->getFiles());
-
+        $this->getMailgun()->messages()->send(
+            $this->domain,
+            $message->getMessageBuilder()->getMessage()
+        );
+        return true;
     }
-
     /**
      * Creates Mailgun instance.
      * @return Mailgun Mailgun instance.
@@ -101,6 +90,6 @@ class Mailer extends BaseMailer
         if (!$this->domain) {
             throw new InvalidConfigException('Mailer::domain must be set.');
         }
-        return new Mailgun($this->key, $this->apiurl);
+        return $this->endpoint ? Mailgun::create($this->key, $this->endpoint) : Mailgun::create($this->key);
     }
 }
