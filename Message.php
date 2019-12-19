@@ -1,12 +1,11 @@
 <?php
-
-namespace itbeauftragter\mailgun;
+namespace boundstate\mailgun;
 
 
 use yii\base\NotSupportedException;
 use yii\helpers\VarDumper;
 use yii\mail\BaseMessage;
-use Mailgun\Messages\MessageBuilder;
+use Mailgun\Message\MessageBuilder;
 
 /**
  * Message implements a message class based on Mailgun.
@@ -78,17 +77,6 @@ class Message extends BaseMessage
     {
         return null;
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function addTags($tags)
-	 {
-		foreach ($tags as $tag) {
-			$this->getMessageBuilder()->addTag($tag);
-		}
-		return $this;
-	 }
 
     /**
      * @inheritdoc
@@ -220,7 +208,9 @@ class Message extends BaseMessage
      */
     public function embed($fileName, array $options = [])
     {
-        throw new NotSupportedException();
+        $attachmentName = !empty($options['fileName']) ? $options['fileName'] : basename($fileName);
+        $this->getMessageBuilder()->addInlineImage("@{$fileName}", $attachmentName);
+        return 'cid:'.$attachmentName;
     }
 
     /**
@@ -237,6 +227,16 @@ class Message extends BaseMessage
     public function toString()
     {
         return VarDumper::dumpAsString($this->getMessageBuilder()->getMessage());
+    }
+
+    /**
+     * Sets whether the message in test mode.
+     * When you do this, Mailgun will accept the message but will not send it. This is useful for testing purposes.
+     */
+    public function setTestMode(bool $enabled): self {
+        $this->getMessageBuilder()->setTestMode($enabled);
+
+        return $this;
     }
 
     /**
