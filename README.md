@@ -22,7 +22,7 @@ Configure it in the application configuration:
         'class' => 'itbeauftragter\mailgun\Mailer',
         'key' => 'key-example',
         'domain' => 'mg.example.com',
-        'apiurl' => 'api.eu.mailgun.net'
+        'endpoint' => 'api.eu.mailgun.net'
     ],
     ...
 ],
